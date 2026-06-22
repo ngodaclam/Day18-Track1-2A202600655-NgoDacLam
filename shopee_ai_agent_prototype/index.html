@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee AI Support - Đổi Trả / Hoàn Tiền</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header class="chat-header">
+        <button class="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+        <div class="agent-info">
+            <div class="avatar">
+                <img src="https://cf.shopee.vn/file/49aeb0a8a61cefc487da21e6ce48e24c" alt="AI Agent">
+                <span class="status-indicator"></span>
+            </div>
+            <div class="agent-details">
+                <h1 class="agent-name">Shopee AI Agent <i class="fa-solid fa-robot"></i></h1>
+                <p class="agent-status">Online - Hỗ trợ tự động</p>
+            </div>
+        </div>
+        <button class="more-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+    </header>
+
+    <!-- Chat Area -->
+    <main class="chat-container" id="chat-container">
+        <!-- Messages will be injected here -->
+        <div class="message system-msg time-stamp">Hôm nay 10:24</div>
+        <div class="message system-msg secure-notice">
+            <i class="fa-solid fa-lock"></i> Mọi thông tin đều được bảo mật.
+        </div>
+    </main>
+
+    <!-- Scanning Overlay (Hidden by default) -->
+    <div class="scanning-overlay" id="scanning-overlay">
+        <div class="scan-box">
+            <div class="scan-line"></div>
+            <i class="fa-solid fa-expand scan-icon"></i>
+        </div>
+        <p>AI đang xác thực hình ảnh... <span id="scan-progress">0%</span></p>
+    </div>
+
+    <!-- Quick Replies Area -->
+    <div class="quick-replies" id="quick-replies">
+        <!-- Buttons injected here dynamically -->
+    </div>
+
+    <!-- Input Area -->
+    <footer class="chat-footer">
+        <button class="action-btn" id="upload-btn" title="Tải lên bằng chứng">
+            <i class="fa-solid fa-camera"></i>
+        </button>
+        <div class="input-wrapper">
+            <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+        </div>
+        <button class="send-btn" id="send-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+        </button>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
