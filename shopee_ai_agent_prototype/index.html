@@ -3,67 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopee AI Support - Đổi Trả / Hoàn Tiền</title>
+    <title>Shopee AI Support - HCAI Design Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="app-container">
-    <!-- Header -->
-    <header class="chat-header">
-        <button class="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
-        <div class="agent-info">
-            <div class="avatar">
-                <img src="https://cf.shopee.vn/file/49aeb0a8a61cefc487da21e6ce48e24c" alt="AI Agent">
-                <span class="status-indicator"></span>
+<div class="dashboard-container">
+    
+    <!-- LEFT PANEL: Scenario Control Panel -->
+    <aside class="dashboard-panel control-panel">
+        <div class="panel-header">
+            <h2><i class="fa-solid fa-sliders"></i> BẢNG ĐIỀU KHIỂN</h2>
+            <p>Chọn kịch bản để trải nghiệm thiết kế HCAI</p>
+        </div>
+        <div class="panel-body">
+            <div class="scenario-buttons">
+                <button class="scen-btn active" id="btn-onboarding" onclick="switchScenario('ONBOARDING')">
+                    <span class="scen-num">1</span>
+                    <span class="scen-text">Luồng Onboarding (Bắt buộc)</span>
+                </button>
+                <button class="scen-btn" id="btn-broken" onclick="switchScenario('BROKEN_STANDARD')">
+                    <span class="scen-num">2</span>
+                    <span class="scen-text">Đổi Trả Hàng Vỡ (Thuận lợi)</span>
+                </button>
+                <button class="scen-btn" id="btn-wrong-size" onclick="switchScenario('WRONG_SIZE')">
+                    <span class="scen-num">3</span>
+                    <span class="scen-text">Giao Sai Size (Thuận lợi)</span>
+                </button>
+                <button class="scen-btn" id="btn-blurry" onclick="switchScenario('BLURRY_RECOVERY')">
+                    <span class="scen-num">4</span>
+                    <span class="scen-text">Ảnh Chụp Mờ (Độ tin cậy thấp)</span>
+                </button>
+                <button class="scen-btn" id="btn-mismatch" onclick="switchScenario('MISMATCH_RECOVERY')">
+                    <span class="scen-num">5</span>
+                    <span class="scen-text">AI Nhận Diện Sai (Khôi phục lỗi)</span>
+                </button>
             </div>
-            <div class="agent-details">
-                <h1 class="agent-name">Shopee AI Agent <i class="fa-solid fa-robot"></i></h1>
-                <p class="agent-status">Online - Hỗ trợ tự động</p>
+            
+            <div class="panel-footer">
+                <button class="btn btn-outline" id="btn-reset" onclick="resetPrototype()"><i class="fa-solid fa-rotate-right"></i> Reset Trạng Thái</button>
             </div>
         </div>
-        <button class="more-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-    </header>
+    </aside>
 
-    <!-- Chat Area -->
-    <main class="chat-container" id="chat-container">
-        <!-- Messages will be injected here -->
-        <div class="message system-msg time-stamp">Hôm nay 10:24</div>
-        <div class="message system-msg secure-notice">
-            <i class="fa-solid fa-lock"></i> Mọi thông tin đều được bảo mật.
+    <!-- CENTER PANEL: Mobile Emulator -->
+    <main class="phone-mockup-wrapper">
+        <div class="app-container">
+            
+            <!-- ONBOARDING SCREEN -->
+            <div class="screen active" id="onboarding-screen">
+                <div class="onboarding-header">
+                    <div class="shopee-logo"><i class="fa-solid fa-bag-shopping"></i> Shopee AI</div>
+                    <h3>Yêu Cầu Đổi Trả / Hoàn Tiền Tự Động</h3>
+                    <p>Đơn hàng #SPX123456</p>
+                </div>
+                <div class="onboarding-content">
+                    <div class="info-card">
+                        <div class="info-item">
+                            <i class="fa-solid fa-circle-question info-icon color-primary"></i>
+                            <div class="info-text">
+                                <h4>AI có thể hỗ trợ bạn những gì?</h4>
+                                <p>Tự động phân tích lỗi sản phẩm qua hình ảnh, điền nhanh đơn yêu cầu và đề xuất phương án hoàn tiền.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-ban info-icon color-warning"></i>
+                            <div class="info-text">
+                                <h4>Giới hạn hoạt động của AI là gì?</h4>
+                                <p>AI chỉ xử lý tự động với các đơn hàng dưới <b>5.000.000đ</b>. AI không thể tự động can thiệp vào tài khoản ngân hàng bên ngoài ShopeePay của bạn.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-shield-halved info-icon color-success"></i>
+                            <div class="info-text">
+                                <h4>Dữ liệu sử dụng và quyền truy cập</h4>
+                                <p>Để xử lý yêu cầu, AI cần truy cập lịch sử mua hàng của đơn #SPX123456 và sử dụng máy ảnh để chụp bằng chứng hàng lỗi.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-user-gear info-icon color-info"></i>
+                            <div class="info-text">
+                                <h4>Bạn luôn giữ quyền kiểm soát</h4>
+                                <p>Thông tin do AI tự động điền luôn ở dạng <b>Bản nháp</b>. Bạn có thể tự do chỉnh sửa, hủy bỏ hoặc yêu cầu kết nối với <b>Nhân viên hỗ trợ (Người thật)</b> bất cứ lúc nào.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="onboarding-footer">
+                    <button class="btn btn-primary" id="start-onboarding-btn">Bắt Đầu Yêu Cầu <i class="fa-solid fa-arrow-right"></i></button>
+                    <p class="terms">Bằng cách tiếp tục, bạn đồng ý với Điều khoản xử lý dữ liệu AI của Shopee.</p>
+                </div>
+            </div>
+
+            <!-- CHAT SCREEN -->
+            <div class="screen" id="chat-screen">
+                <!-- Header -->
+                <header class="chat-header">
+                    <button class="back-btn" onclick="backToOnboarding()"><i class="fa-solid fa-arrow-left"></i></button>
+                    <div class="agent-info">
+                        <div class="avatar">
+                            <img src="https://cf.shopee.vn/file/49aeb0a8a61cefc487da21e6ce48e24c" alt="AI Agent">
+                            <span class="status-indicator"></span>
+                        </div>
+                        <div class="agent-details">
+                            <h1 class="agent-name">Shopee AI Agent <i class="fa-solid fa-robot"></i></h1>
+                            <p class="agent-status">Online - Hỗ trợ tự động</p>
+                        </div>
+                    </div>
+                    <button class="more-btn" onclick="triggerEscalate()"><i class="fa-solid fa-headset" title="Gặp nhân viên hỗ trợ"></i></button>
+                </header>
+
+                <!-- Chat Area -->
+                <main class="chat-container" id="chat-container">
+                    <div class="message system-msg time-stamp">Hôm nay 14:07</div>
+                    <div class="message system-msg secure-notice">
+                        <i class="fa-solid fa-lock"></i> Lịch sử trò chuyện đã được mã hóa bảo mật.
+                    </div>
+                </main>
+
+                <!-- Scanning Overlay (Hidden by default) -->
+                <div class="scanning-overlay" id="scanning-overlay">
+                    <div class="scan-box">
+                        <div class="scan-line"></div>
+                        <i class="fa-solid fa-expand scan-icon"></i>
+                        <!-- Highlight Box Simulation -->
+                        <div class="highlight-box-sim" id="highlight-box-sim"></div>
+                    </div>
+                    <p id="scan-text">AI đang phân tích hình ảnh... <span id="scan-progress">0%</span></p>
+                </div>
+
+                <!-- Quick Replies Area -->
+                <div class="quick-replies" id="quick-replies">
+                    <!-- Buttons injected here dynamically -->
+                </div>
+
+                <!-- Input Area -->
+                <footer class="chat-footer">
+                    <button class="action-btn" id="upload-btn" title="Tải lên bằng chứng">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <div class="input-wrapper">
+                        <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+                    </div>
+                    <button class="send-btn" id="send-btn">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </footer>
+            </div>
+
         </div>
     </main>
 
-    <!-- Scanning Overlay (Hidden by default) -->
-    <div class="scanning-overlay" id="scanning-overlay">
-        <div class="scan-box">
-            <div class="scan-line"></div>
-            <i class="fa-solid fa-expand scan-icon"></i>
+    <!-- RIGHT PANEL: Design Rationale & HCAI Analysis -->
+    <aside class="dashboard-panel rationale-panel">
+        <div class="panel-header">
+            <h2><i class="fa-solid fa-circle-info"></i> CHÚ THÍCH THIẾT KẾ (HCAI)</h2>
+            <p>Học thuyết thiết kế lấy con người làm trung tâm</p>
         </div>
-        <p>AI đang xác thực hình ảnh... <span id="scan-progress">0%</span></p>
-    </div>
+        <div class="panel-body">
+            <!-- Dynamic Phase Indicator -->
+            <div class="phase-progress-bar">
+                <div class="phase-step active" id="phase-step-A">
+                    <span class="step-dot"></span>
+                    <span class="step-lbl">A. Onboarding</span>
+                </div>
+                <div class="phase-step" id="phase-step-B">
+                    <span class="step-dot"></span>
+                    <span class="step-lbl">B. Trong khi AI trợ giúp</span>
+                </div>
+                <div class="phase-step" id="phase-step-C">
+                    <span class="step-dot"></span>
+                    <span class="step-lbl">C. Đưa ra kết quả</span>
+                </div>
+                <div class="phase-step" id="phase-step-D">
+                    <span class="step-dot"></span>
+                    <span class="step-lbl">D. Phục hồi lỗi</span>
+                </div>
+            </div>
 
-    <!-- Quick Replies Area -->
-    <div class="quick-replies" id="quick-replies">
-        <!-- Buttons injected here dynamically -->
-    </div>
-
-    <!-- Input Area -->
-    <footer class="chat-footer">
-        <button class="action-btn" id="upload-btn" title="Tải lên bằng chứng">
-            <i class="fa-solid fa-camera"></i>
-        </button>
-        <div class="input-wrapper">
-            <input type="text" id="chat-input" placeholder="Nhập tin nhắn..." autocomplete="off">
+            <!-- Dynamic content injected here based on state -->
+            <div class="rationale-content-container">
+                <div class="rationale-card" id="rationale-details">
+                    <!-- Default Content (Onboarding Phase) -->
+                    <h3>Giai đoạn A: Onboarding và Thiết lập kỳ vọng</h3>
+                    <p class="rationale-desc">Giúp người dùng hiểu đúng năng lực, giới hạn của AI ngay khi bắt đầu trải nghiệm.</p>
+                    
+                    <div class="rationale-point">
+                        <span class="point-badge text-primary">Năng lực AI</span>
+                        <p><strong>Nói rõ AI biết gì:</strong> AI nêu rõ khả năng hỗ trợ quét ảnh lỗi, tự điền form và đề xuất phương án tự động duyệt.</p>
+                    </div>
+                    <div class="rationale-point">
+                        <span class="point-badge text-warning">Giới hạn AI</span>
+                        <p><strong>Nói rõ AI không thể làm gì:</strong> Quy định giới hạn tiền duyệt tự động (< 5 triệu) và không can thiệp ví ngân hàng ngoài hệ thống để tránh người dùng kỳ vọng quá mức.</p>
+                    </div>
+                    <div class="rationale-point">
+                        <span class="point-badge text-success">Dữ liệu & Quyền</span>
+                        <p><strong>Minh bạch dữ liệu:</strong> Nêu rõ việc AI truy cập thông tin gì (mã đơn hàng, ảnh bằng chứng chụp từ camera).</p>
+                    </div>
+                    <div class="rationale-point">
+                        <span class="point-badge text-info">Quyền Kiểm Soát</span>
+                        <p><strong>Quyền tối cao thuộc về người dùng:</strong> Khẳng định kết quả của AI chỉ là "Bản nháp", người dùng có toàn quyền sửa đổi hoặc bỏ qua AI để gặp nhân viên tư vấn bất cứ lúc nào.</p>
+                    </div>
+                </div>
+                
+                <div class="rationale-checklist">
+                    <h4>Học thuyết áp dụng (HCAI Principles)</h4>
+                    <ul>
+                        <li id="chk-1" class="completed"><i class="fa-solid fa-circle-check"></i> Thiết lập kỳ vọng phù hợp (Expectation Matching)</li>
+                        <li id="chk-2"><i class="fa-solid fa-circle-xmark"></i> Cung cấp bằng chứng & Nguồn gốc (Provenance)</li>
+                        <li id="chk-3"><i class="fa-solid fa-circle-xmark"></i> Hiển thị sự không chắc chắn (Uncertainty Visualization)</li>
+                        <li id="chk-4"><i class="fa-solid fa-circle-xmark"></i> Hỗ trợ sửa lỗi & khôi phục (Error Recovery & Feedback)</li>
+                        <li id="chk-5" class="completed"><i class="fa-solid fa-circle-check"></i> Quyền kiểm soát thuộc về con người (Human Agency)</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <button class="send-btn" id="send-btn">
-            <i class="fa-solid fa-paper-plane"></i>
-        </button>
-    </footer>
+    </aside>
+
 </div>
 
 <script src="script.js"></script>
