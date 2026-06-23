@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message-wrapper ${sender}`;
         
-        let content = isHTML ? text : `<div class="bubble">${text}</div>`;
+        let content = (isHTML && text.includes('class="bubble"')) ? text : `<div class="bubble">${text}</div>`;
         if (sender === 'user') {
             content = `<div class="bubble">${text}<div class="time">${getCurrentTime()}</div></div>`;
         } else {
